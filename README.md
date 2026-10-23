@@ -4,13 +4,7 @@
 
 兼容 OpenAI 格式接口 · 支持流式输出 · 多模态图片 · 移动端适配
 
-🌐 在线体验 · 功能特性 · 快速开始 · 使用说明 · 常见问题 · 贡献指南
-
-https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white
-https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white
-https://img.shields.io/badge/License-Apache_2.0-blue.svg
-https://img.shields.io/badge/PRs-welcome-brightgreen.svg
-https://img.shields.io/badge/Deployed_on-Cloudflare_Pages-F38020?logo=cloudflare&logoColor=white
+🌐 在线体验 · 功能特性 · 快速开始 · 常见问题
 
 </div>---
 
@@ -47,7 +41,6 @@ AI Chat Client 是一个无需构建、无需后端、单文件部署的 AI 对�
 📱 响应式 移动端适配 手机 / 平板 / 桌面自适应布局
 🎨 界面 现代 UI Tailwind CSS + 渐变动效 + 流畅过渡动画
 🔒 访问控制 滑块验证 可选的滑动验证码，防止误触/爬虫
-🇨🇳 中文友好 输入法兼容 中文输入法组合期间回车不误发
 
 ---
 
@@ -77,19 +70,7 @@ cd AI-Chat-Client
 
 ⚠️ 注意：本地以 file:// 协议打开时，浏览器会触发 CORS 跨域限制，调用远程 API 可能失败。推荐使用在线版或本地静态服务器。
 
-方式三：本地静态服务器
-
-```bash
-# Python 3
-python -m http.server 8080
-
-# 或 Node.js（需先安装 serve）
-npx serve .
-```
-
-然后访问 http://localhost:8080。
-
-方式四：部署到 Cloudflare Pages
+方式三：部署到 Cloudflare Pages
 
 本项目已部署示例：https://ai-ol.pages.dev
 
@@ -104,9 +85,6 @@ npx serve .
    · Build command：留空
    · Build output directory：/
 6. 点击 Save and Deploy
-7. 部署完成后访问 https://<项目名>.pages.dev
-
-也可以部署到 GitHub Pages / Vercel / Netlify 等任意静态托管平台。
 
 ---
 
@@ -130,54 +108,20 @@ API Key sk-xxxxxxxx 各平台申请的密钥
 3. 上传图片（可选）
 
 · 点击 🖼️ 按钮选择图片，支持多张
-· 必须使用 vision 多模态模型（如 gpt-4o、qwen-vl-max、deepseek-v4-flash-vision-exp 等）
+· 必须使用 vision 多模态模型（如 gpt-4o、qwen-vl-max 等）
 · 图片会自动压缩到最长边 1280px，减少 Token 消耗
 
 ---
 
 🌐 兼容的 API 服务商
 
-本客户端兼容所有遵循 OpenAI 接口规范 的服务：
-
-服务商 Base URL 示例 备注
-DeepSeek https://api.deepseek.com/v1 官方推荐
-OpenAI https://api.openai.com/v1 需科学上网
-Moonshot https://api.moonshot.cn/v1 国内可用
-通义千问 https://dashscope.aliyuncs.com/compatible-mode/v1 阿里云
-智谱 GLM https://open.bigmodel.cn/api/paas/v4 国内可用
-Ollama http://localhost:11434/v1 本地模型
-One API 你的部署地址 /v1 网关聚合
-SiliconFlow https://api.siliconflow.cn/v1 国内可用
-
-🚨 使用时如遇 CORS 跨域错误，请确认服务商是否允许浏览器直连。多数官方 API 已支持跨域；若不允许，可通过反向代理或自建网关解决。
-
----
-
-🧩 项目结构
-
-```
-AI-Chat-Client/
-├── index.html        # 单文件应用
-├── IMG_3993.PNG      # 桌面端预览图
-├── IMG_3992.PNG      # 移动端预览图
-├── README.md         # 本文档
-├── LICENSE           # Apache 2.0 许可证
-└── .gitignore        # Git 忽略规则
-```
-
-整个应用仅有 一个 HTML 文件，无需 npm、无需构建，开箱即用。
-
----
-
-🛠️ 技术栈
-
-· HTML5 + 原生 JavaScript —— 零依赖
-· Tailwind CSS —— 通过 CDN 引入，快速构建现代 UI
-· Font Awesome 4.7 —— 图标库
-· Fetch API + ReadableStream —— 处理流式响应
-· Canvas API —— 客户端图片压缩
-· localStorage —— 配置与历史持久化
-· Cloudflare Pages —— 静态站点托管
+服务商 Base URL 示例
+DeepSeek https://api.deepseek.com/v1
+OpenAI https://api.openai.com/v1
+Moonshot https://api.moonshot.cn/v1
+通义千问 https://dashscope.aliyuncs.com/compatible-mode/v1
+Ollama http://localhost:11434/v1
+SiliconFlow https://api.siliconflow.cn/v1
 
 ---
 
@@ -187,115 +131,27 @@ AI-Chat-Client/
 <summary><b>1. 提示 "Failed to fetch" 或跨域错误？</b></summary>浏览器控制台报 CORS 错误，说明接口禁止浏览器直连。解决方案：
 
 · ✅ 使用在线版 https://ai-ol.pages.dev（HTTPS 环境）
-· ✅ 部署到 HTTPS 环境（Cloudflare Pages / Vercel 等）
 · ✅ 确认 API 服务商支持 CORS
 · ✅ 使用 One API 等网关中转
-· ✅ 自建反向代理（Nginx / Cloudflare Worker）
 
 </details><details>
 <summary><b>2. 上传图片后模型报错 / 无响应？</b></summary>图片输入必须使用 vision 多模态模型，普通文本模型不支持 image_url 格式。
 
-推荐模型：
-
-· OpenAI：gpt-4o / gpt-4o-mini
-· 通义千问：qwen-vl-max / qwen-vl-plus
-· DeepSeek：deepseek-v4-flash-vision-exp（示例，请以实际可用模型为准）
-· Moonshot：moonshot-v1-8k-vision-preview
-
 </details><details>
 <summary><b>3. 提示 "401 Unauthorized"？</b></summary>· 检查 API Key 是否填写正确（注意前后空格）
 · 检查 Key 是否已过期或额度不足
-· 检查是否选错了服务商（如用 OpenAI Key 请求 DeepSeek 接口）
-
-</details><details>
-<summary><b>4. 聊天记录丢失了？</b></summary>· 清理浏览器数据会清除 localStorage
-· 隐私模式 / 无痕窗口关闭后不保留
-· 建议定期导出重要对话（当前暂不支持导出，欢迎 PR）
-
-</details><details>
-<summary><b>5. 如何关闭滑块验证？</b></summary>打开 index.html，找到 window.addEventListener('load', ...) 部分，改为直接调用：
-
-```js
-window.addEventListener('load', () => {
-  renderAppPage();  // 直接进入聊天页，跳过滑块
-});
-```
-
-</details><details>
-<summary><b>6. 手机上的侧边栏无法打开？</b></summary>· 确保屏幕宽度 < 768px（md 断点）
-· 点击左上角 ☰ 图标打开
-· 点击遮罩或右上角 × 关闭
-
-</details><details>
-<summary><b>7. 在线版和本地版有什么区别？</b></summary>功能完全一致。在线版部署在 Cloudflare Pages，使用 HTTPS，可减少本地 file:// 打开时的 CORS 问题，并支持手机直接访问。
-
-在线地址：https://ai-ol.pages.dev
 
 </details>---
 
-🤝 贡献指南
-
-欢迎提交 Issue 和 PR！
-
-开发流程
-
-1. Fork 本仓库
-2. 创建特性分支：git checkout -b feature/your-feature
-3. 提交更改：git commit -m "feat: 添加导出对话功能"
-4. 推送分支：git push origin feature/your-feature
-5. 发起 Pull Request
-
-提交规范
-
-遵循 Conventional Commits：
-
-· feat: 新功能
-· fix: 修复 Bug
-· docs: 文档更新
-· style: 代码格式（不影响功能）
-· refactor: 重构
-· perf: 性能优化
-
-待办清单（欢迎认领）
-
-□ 对话导出（Markdown / JSON / 图片）
-□ 多会话管理（侧边栏历史列表）
-□ 深色 / 浅色主题切换
-□ 对话分享链接（URL 参数）
-□ 键盘快捷键（Ctrl+K 清屏等）
-□ Markdown 消息渲染 + 代码高亮
-□ PWA 支持（可离线使用）
-□ 多语言（英文 / 日文）
-
----
-
-📄 License
-
-本项目基于 Apache License 2.0 开源，可自由使用、修改、分发。
-
----
-
-⚠️ 免责声明
-
-· 本工具仅用于技术学习与个人使用
-· 请遵守所使用 API 服务商的服务条款
-· 请勿将 API Key 硬编码后提交到公开仓库（本项目使用 localStorage 存储，不会写入代码）
-· AI 生成内容仅供参考，请自行核实
-
----
-
 🙏 致谢
 
-· Tailwind CSS —— 实用优先的 CSS 框架
-· Font Awesome —— 图标库
-· Cloudflare Pages —— 静态站点托管
-· 所有贡献者与使用者 ❤️
+· Tailwind CSS
+· Font Awesome
+· Cloudflare Pages
 
 ---
 
 <div align="center">⭐ 如果这个项目对你有帮助，欢迎点亮一颗 Star！
-
-在线体验：https://ai-ol.pages.dev
 
 Made with ❤️ by xiaoovo663
 
