@@ -64,7 +64,7 @@
 
 | 桌面端 | 移动端 |
 | :---: | :---: |
-| ![desktop](./docs/IMG_3990.png) | ![mobile](./docs/IMG_3992.png) |
+| ![desktop](IMG_3993.png) | ![mobile](IMG_3992.png) |
 
 ---
 
