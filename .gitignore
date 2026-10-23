@@ -1,0 +1,30 @@
+# 依赖
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 构建产物
+dist/
+build/
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 本地环境文件
+.env
+.env.local
+*.secret
+config.local.*
+
+# 临时文件
+*.tmp
+*.bak
