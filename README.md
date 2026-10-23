@@ -338,6 +338,6 @@ window.addEventListener('load', () => {
 
 在线体验：**https://ai-ol.pages.dev**
 
-Made with ❤️ by [Your Name](https://github.com/your-username)
+Made with ❤️ by [xiaoovo663](https://github.com/your-username)
 
 </div>
