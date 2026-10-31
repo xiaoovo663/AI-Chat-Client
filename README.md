@@ -1,342 +1,189 @@
-<div align="center">
+# AI Chat Client
 
-# 💬 AI Chat Client
+> 一个单文件、零后端、开箱即用的纯前端 AI 对话客户端。
 
-**一个单文件、纯前端、开箱即用的 AI 对话客户端**
+[在线体验](https://ai-ol.pages.dev) · [开源仓库](https://github.com/xiaoovo663/AI-Chat-Client) · [MIT License](https://github.com/xiaoovo663/AI-Chat-Client/blob/main/LICENSE)
 
-兼容 OpenAI 格式接口 · 支持流式输出 · 多模态图片 · 移动端适配
-
-[🌐 在线体验](https://ai-ol.pages.dev) · [功能特性](#-功能特性) · [快速开始](#-快速开始) · [使用说明](#-使用说明) · [常见问题](#-常见问题) · [贡献指南](#-贡献指南)
-
-[![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/zh-CN/docs/Web/HTML)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-[![Cloudflare Pages](https://img.shields.io/badge/Deployed_on-Cloudflare_Pages-F38020?logo=cloudflare&logoColor=white)](https://ai-ol.pages.dev)
-
-</div>
+> **版本说明**  
+> 在线体验版已包含作者完成适配、但尚未同步到开源仓库的增强功能；本仓库当前提供稳定开源版。  
+> 两个版本的功能差异见下方「版本与开源说明」。在线版功能以实际页面为准。
 
 ---
 
-## 🌐 在线体验
+## ✨ 项目特性
 
-无需安装，打开即用：
-
-👉 **https://ai-ol.pages.dev**
-
-> 在线版已部署在 Cloudflare Pages，支持 HTTPS，可避免本地 `file://` 打开时的 CORS 限制。
-
----
-
-## ✨ 项目简介
-
-**AI Chat Client** 是一个**无需构建、无需后端、单文件部署**的 AI 对话网页客户端。
-
-它兼容所有遵循 OpenAI 接口规范的 API（如 DeepSeek、OpenAI、Moonshot、通义千问、本地 Ollama、One API 等），只需填入接口地址和 Key 即可开始对话。
-
-> 所有配置和聊天记录保存在浏览器本地（`localStorage`），**不会上传到任何第三方服务器**。
+- **极致轻量**：核心仅一个 `index.html`，无需 npm、构建工具或后端服务，下载后双击即可在浏览器中运行。
+- **OpenAI 接口兼容**：支持所有遵循 OpenAI API 规范的服务，包括 OpenAI、DeepSeek、Moonshot、通义千问、One API、本地 Ollama 等。
+- **流式输出**：支持打字机效果的流式回复，对话体验更自然。
+- **多模态图片上传**：支持图片上传与自动压缩，需搭配支持视觉能力的模型使用。
+- **模型列表获取**：配置 API 后可一键获取可用模型列表。
+- **参数调节**：支持 `temperature`、`top_p` 等常用生成参数调节。
+- **本地数据存储**：API 配置与聊天记录保存在浏览器 `localStorage`，不上传至第三方服务器。
+- **响应式界面**：适配桌面、平板与移动端。
+- **MIT 开源**：可自由使用、修改与分发。
 
 ---
 
-## 🚀 功能特性
+## 🚀 快速开始
 
-| 分类 | 功能 | 说明 |
+### 方式一：在线使用
+
+直接访问：
+
+**https://ai-ol.pages.dev**
+
+无需安装，打开即可配置 API 并开始对话。
+
+### 方式二：本地使用开源版
+
+1. 下载或克隆本仓库：
+   ```bash
+   git clone https://github.com/xiaoovo663/AI-Chat-Client.git
+   ```
+2. 进入目录，双击打开 `index.html`；
+3. 在设置中填写 API Base URL、API Key 与模型名称即可使用。
+
+> 注意：开源仓库当前为稳定版，可能不包含在线体验版中的部分增强功能。
+
+---
+
+## ⚙️ 配置说明
+
+打开页面后进入设置，填写以下信息：
+
+| 配置项 | 说明 | 示例 |
 | --- | --- | --- |
-| 💬 对话 | 流式输出 | 打字机效果逐字显示，支持中途停止生成 |
-| 🖼️ 多模态 | 图片上传 | 支持 jpg/png/gif/webp，大图自动压缩为 JPEG |
-| 🔌 兼容性 | OpenAI 格式 | 任意兼容 `/v1/chat/completions` 的服务均可使用 |
-| 🧠 模型管理 | 一键获取列表 | 通过 `/v1/models` 拉取模型，也支持手动添加模型 ID |
-| ⚙️ 参数控制 | 精细调节 | `temperature` / `top_p` / `max_tokens` / 系统提示词 |
-| 📊 诊断 | 延迟测试 | 一键测试接口连通性和响应耗时 |
-| 💾 持久化 | 本地存储 | 配置、对话历史保存在浏览器，刷新不丢失 |
-| 📱 响应式 | 移动端适配 | 手机 / 平板 / 桌面自适应布局 |
-| 🎨 界面 | 现代 UI | Tailwind CSS + 渐变动效 + 流畅过渡动画 |
-| 🔒 访问控制 | 滑块验证 | 可选的滑动验证码，防止误触/爬虫 |
-| 🇨🇳 中文友好 | 输入法兼容 | 中文输入法组合期间回车不误发 |
+| API Base URL | OpenAI 兼容接口地址 | `https://api.openai.com/v1` |
+| API Key | 服务商提供的密钥 | `sk-...` |
+| 模型名称 | 要调用的模型 ID | `gpt-4o-mini`、`deepseek-chat` 等 |
+
+常见服务示例：
+
+- OpenAI：`https://api.openai.com/v1`
+- DeepSeek：`https://api.deepseek.com`
+- Ollama 本地：`http://localhost:11434/v1`
+- One API / New API：填写你部署的兼容接口地址
+
+> 图片上传功能需要模型支持视觉输入；模型列表获取能力取决于服务商接口是否开放 `/models`。
 
 ---
 
-## 📸 界面预览
+## 🧭 版本与开源说明
 
-> 📌 建议在 `docs/` 目录放入截图，并替换下方占位路径。
->
-> 在线预览：https://ai-ol.pages.dev
+当前项目存在两个版本状态：
 
-| 桌面端 | 移动端 |
-| :---: | :---: |
-| ![desktop](IMG_3993.png) | ![mobile](IMG_3992.png) |
+| 能力 | 稳定开源版（本仓库） | 在线体验版 | 说明 |
+| --- | :---: | :---: | --- |
+| 基础对话 / 流式输出 | ✅ | ✅ | 均已提供 |
+| 图片上传 / 模型列表 / 参数调节 | ✅ | ✅ | 均已提供 |
+| 多会话管理 | — | 🧪 | 在线版已提供，源码同步中 |
+| 对话导出 | — | 🧪 | 在线版已提供，源码同步中 |
+| 深色主题 | — | 🧪 | 在线版已提供，源码同步中 |
+| Markdown 渲染增强 | — | 🧪 | 在线版已提供，源码同步中 |
+| PWA / 离线启动 | — | 🧪 | 在线版已提供，源码同步中 |
+| 多 LLM Profile | — | 🧪 | 在线版已提供，源码同步中 |
+| 上下文裁剪 / 长对话优化 | — | 🧪 | 在线版已提供，源码同步中 |
 
----
+图例：
 
-## 🏁 快速开始
+- ✅ 已提供
+- 🧪 在线版已提供，源码同步中
+- — 当前版本暂未提供
 
-### 方式一：直接在线使用（推荐）
+**说明：**
 
-打开 **https://ai-ol.pages.dev**，填写接口地址和 API Key 即可开始对话。
-
-### 方式二：本地直接打开
-
-```bash
-git clone https://github.com/xiaoovo663/ai-chat-client.git
-cd ai-chat-client
-```
-
-双击打开 `index.html` 即可使用。
-
-> ⚠️ **注意**：本地以 `file://` 协议打开时，浏览器会触发 **CORS 跨域限制**，调用远程 API 可能失败。推荐使用在线版或本地静态服务器。
-
-### 方式三：本地静态服务器
-
-```bash
-# Python 3
-python -m http.server 8080
-
-# 或 Node.js（需先安装 serve）
-npx serve .
-```
-
-然后访问 <http://localhost:8080>。
-
-### 方式四：部署到 Cloudflare Pages
-
-本项目已部署示例：**https://ai-ol.pages.dev**
-
-自行部署步骤：
-
-1. Fork 本仓库
-2. 登录 [Cloudflare Pages](https://pages.cloudflare.com/)
-3. 点击 **Create a project → Connect to Git**
-4. 选择你的仓库
-5. 构建配置：
-   - **Framework preset**：`None`
-   - **Build command**：留空
-   - **Build output directory**：`/`
-6. 点击 **Save and Deploy**
-7. 部署完成后访问 `https://<项目名>.pages.dev`
-
-也可以部署到 **GitHub Pages / Vercel / Netlify** 等任意静态托管平台。
+- 在线体验版用于优先验证增强功能，稳定后会逐步同步到开源仓库。
+- 开源仓库以“稳定、单文件、可直接运行”为分发目标。
+- 后续会在 Release 中标注在线版与开源版的对应关系。
+- 在线版增强功能的具体表现，以实际页面为准。
 
 ---
 
-## ⚙️ 使用说明
+## 🛡️ 隐私与安全
 
-### 1. 填写接口配置
-
-点击左上角 ☰ 打开侧边栏，填写：
-
-| 字段 | 示例 | 说明 |
-| --- | --- | --- |
-| **接口地址** | `https://api.deepseek.com/v1` | OpenAI 格式的 Base URL |
-| **API Key** | `sk-xxxxxxxx` | 各平台申请的密钥 |
-| **模型** | `deepseek-chat` | 点击 🔄 自动获取，或手动添加 |
-
-> 💡 接口地址需**包含**版本路径（如 `/v1`），程序会自动拼接 `/chat/completions` 和 `/models`。
-
-### 2. 保存并开始对话
-
-点击 **「保存配置」**，回到输入框即可发送消息。
-
-### 3. 上传图片（可选）
-
-- 点击 🖼️ 按钮选择图片，支持多张
-- **必须使用 vision 多模态模型**（如 `gpt-4o`、`qwen-vl-max`、`deepseek-v4-flash-vision-exp` 等）
-- 图片会自动压缩到最长边 1280px，减少 Token 消耗
+- API Key 与聊天记录仅保存在当前浏览器的 `localStorage` 中，不会上传到本项目服务器。
+- 本项目没有后端，不收集、不存储用户对话内容。
+- 在公共电脑上使用后，请及时清除浏览器数据或手动删除本地配置。
+- AI 输出属于不可信内容，Markdown 渲染应做好转义与清洗，避免 XSS 风险。
+- 请勿将 API Key 提交到仓库、截图或公开分享。
 
 ---
 
-## 🌐 兼容的 API 服务商
+## 📦 部署
 
-本客户端兼容所有遵循 **OpenAI 接口规范** 的服务：
+本项目可部署在任意静态托管平台：
 
-| 服务商 | Base URL 示例 | 备注 |
-| --- | --- | --- |
-| DeepSeek | `https://api.deepseek.com/v1` | 官方推荐 |
-| OpenAI | `https://api.openai.com/v1` | 需科学上网 |
-| Moonshot | `https://api.moonshot.cn/v1` | 国内可用 |
-| 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 阿里云 |
-| 智谱 GLM | `https://open.bigmodel.cn/api/paas/v4` | 国内可用 |
-| Ollama | `http://localhost:11434/v1` | 本地模型 |
-| One API | 你的部署地址 `/v1` | 网关聚合 |
-| SiliconFlow | `https://api.siliconflow.cn/v1` | 国内可用 |
+- Cloudflare Pages
+- GitHub Pages
+- Vercel
+- Netlify
+- 任意静态文件服务器
 
-> 🚨 使用时如遇 **CORS 跨域错误**，请确认服务商是否允许浏览器直连。多数官方 API 已支持跨域；若不允许，可通过反向代理或自建网关解决。
-
----
-
-## 🧩 项目结构
-
-```
-ai-chat-client/
-├── index.html        # 单文件应用（原名 ai-ol.html）
-├── README.md         # 本文档
-├── LICENSE           # MIT 许可证
-├── .gitignore        # Git 忽略规则
-└── docs/             # 文档与截图（可选）
-    ├── preview-desktop.png
-    └── preview-mobile.png
-```
-
-整个应用仅有 **一个 HTML 文件**，无需 npm、无需构建，开箱即用。
+部署时只需上传 `index.html` 即可。若使用 PWA 增强版，请按对应版本的部署说明一并上传相关静态资源。
 
 ---
 
 ## 🛠️ 技术栈
 
-- **HTML5 + 原生 JavaScript** —— 零依赖
-- **Tailwind CSS** —— 通过 CDN 引入，快速构建现代 UI
-- **Font Awesome 4.7** —— 图标库
-- **Fetch API + ReadableStream** —— 处理流式响应
-- **Canvas API** —— 客户端图片压缩
-- **localStorage** —— 配置与历史持久化
-- **Cloudflare Pages** —— 静态站点托管
+- HTML5
+- 原生 JavaScript
+- Tailwind CSS（CDN）
+- 浏览器 `localStorage`
+- 无后端、无数据库、无服务端依赖
 
 ---
 
-## ❓ 常见问题
+## 🗺️ 路线图
 
-<details>
-<summary><b>1. 提示 "Failed to fetch" 或跨域错误？</b></summary>
-
-浏览器控制台报 **CORS** 错误，说明接口禁止浏览器直连。解决方案：
-
-- ✅ 使用在线版 **https://ai-ol.pages.dev**（HTTPS 环境）
-- ✅ 部署到 **HTTPS** 环境（Cloudflare Pages / Vercel 等）
-- ✅ 确认 API 服务商支持 CORS
-- ✅ 使用 **One API** 等网关中转
-- ✅ 自建反向代理（Nginx / Cloudflare Worker）
-
-</details>
-
-<details>
-<summary><b>2. 上传图片后模型报错 / 无响应？</b></summary>
-
-**图片输入必须使用 vision 多模态模型**，普通文本模型不支持 `image_url` 格式。
-
-推荐模型：
-- OpenAI：`gpt-4o` / `gpt-4o-mini`
-- 通义千问：`qwen-vl-max` / `qwen-vl-plus`
-- DeepSeek：`deepseek-v4-flash-vision-exp`（示例，请以实际可用模型为准）
-- Moonshot：`moonshot-v1-8k-vision-preview`
-
-</details>
-
-<details>
-<summary><b>3. 提示 "401 Unauthorized"？</b></summary>
-
-- 检查 API Key 是否填写正确（注意前后空格）
-- 检查 Key 是否已过期或额度不足
-- 检查是否选错了服务商（如用 OpenAI Key 请求 DeepSeek 接口）
-
-</details>
-
-<details>
-<summary><b>4. 聊天记录丢失了？</b></summary>
-
-- 清理浏览器数据会清除 `localStorage`
-- 隐私模式 / 无痕窗口关闭后不保留
-- 建议定期导出重要对话（当前暂不支持导出，欢迎 PR）
-
-</details>
-
-<details>
-<summary><b>5. 如何关闭滑块验证？</b></summary>
-
-打开 `index.html`，找到 `window.addEventListener('load', ...)` 部分，改为直接调用：
-
-```js
-window.addEventListener('load', () => {
-  renderAppPage();  // 直接进入聊天页，跳过滑块
-});
-```
-
-</details>
-
-<details>
-<summary><b>6. 手机上的侧边栏无法打开？</b></summary>
-
-- 确保屏幕宽度 < 768px（`md` 断点）
-- 点击左上角 ☰ 图标打开
-- 点击遮罩或右上角 × 关闭
-
-</details>
-
-<details>
-<summary><b>7. 在线版和本地版有什么区别？</b></summary>
-
-功能完全一致。在线版部署在 Cloudflare Pages，使用 HTTPS，可减少本地 `file://` 打开时的 CORS 问题，并支持手机直接访问。
-
-在线地址：**https://ai-ol.pages.dev**
-
-</details>
+- [ ] 将在线版增强功能逐步同步到开源仓库
+- [ ] 补充版本号与 Release 说明
+- [ ] 完善 Markdown 渲染安全清洗
+- [ ] 增加核心逻辑测试用例
+- [ ] 完善 FAQ 与部署文档
+- [ ] 视情况支持中英文界面
 
 ---
 
-## 🤝 贡献指南
+## 🤝 贡献
 
-欢迎提交 Issue 和 PR！
+欢迎提交 Issue 与 Pull Request。
 
-### 开发流程
+- 功能建议、Bug 反馈请先开 Issue 讨论。
+- 在线版增强功能的源码暂未同步，相关 PR 请先开 Issue 沟通，避免重复工作。
+- 提交代码时请保持“单文件可直接运行”的分发目标，不引入不必要的构建依赖。
+- 请勿在代码、配置或截图中暴露真实 API Key。
 
-1. Fork 本仓库
-2. 创建特性分支：`git checkout -b feature/your-feature`
-3. 提交更改：`git commit -m "feat: 添加导出对话功能"`
-4. 推送分支：`git push origin feature/your-feature`
-5. 发起 Pull Request
+---
 
-### 提交规范
+## ❓ FAQ
 
-遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)：
+**Q：为什么在线版功能比开源仓库多？**  
+A：增强功能会先在在线版验证，稳定后逐步同步到开源仓库。开源仓库当前以稳定单文件版为主。
 
-- `feat:` 新功能
-- `fix:` 修复 Bug
-- `docs:` 文档更新
-- `style:` 代码格式（不影响功能）
-- `refactor:` 重构
-- `perf:` 性能优化
+**Q：本地打开 `index.html` 无法请求 API？**  
+A：部分服务商存在 CORS 限制。可尝试使用支持跨域的服务商、自建代理，或部署到静态托管平台后访问。
 
-### 待办清单（欢迎认领）
+**Q：聊天记录存在哪里？**  
+A：保存在当前浏览器的 `localStorage`。清除浏览器数据后记录会丢失。
 
-- [ ] 对话导出（Markdown / JSON / 图片）
-- [ ] 多会话管理（侧边栏历史列表）
-- [ ] 深色 / 浅色主题切换
-- [ ] 对话分享链接（URL 参数）
-- [ ] 键盘快捷键（`Ctrl+K` 清屏等）
-- [ ] Markdown 消息渲染 + 代码高亮
-- [ ] PWA 支持（可离线使用）
-- [ ] 多语言（英文 / 日文）
+**Q：API Key 会上传到服务器吗？**  
+A：不会。本项目无后端，Key 仅保存在本地浏览器中。
+
+**Q：如何切换不同服务商？**  
+A：修改 API Base URL、API Key 与模型名称即可。在线体验版支持多 LLM Profile，开源版同步中。
 
 ---
 
 ## 📄 License
 
-本项目基于 [MIT License](./LICENSE) 开源，可自由使用、修改、分发。
+本项目基于 [MIT License](https://github.com/xiaoovo663/AI-Chat-Client/blob/main/LICENSE) 开源。
 
 ---
 
 ## ⚠️ 免责声明
 
-- 本工具仅用于技术学习与个人使用
-- 请遵守所使用 API 服务商的服务条款
-- 请勿将 API Key 硬编码后提交到公开仓库（本项目使用 `localStorage` 存储，不会写入代码）
-- AI 生成内容仅供参考，请自行核实
+本项目仅用于学习与个人使用。AI 生成内容不保证准确性与完整性，请自行判断。使用第三方 API 时请遵守对应服务商的条款与计费规则。
 
 ---
 
-## 🙏 致谢
-
-- [Tailwind CSS](https://tailwindcss.com/) —— 实用优先的 CSS 框架
-- [Font Awesome](https://fontawesome.com/) —— 图标库
-- [Cloudflare Pages](https://pages.cloudflare.com/) —— 静态站点托管
-- 所有贡献者与使用者 ❤️
-
----
-
-<div align="center">
-
-**⭐ 如果这个项目对你有帮助，欢迎点亮一颗 Star！**
-
-在线体验：**https://ai-ol.pages.dev**
-
-Made with ❤️ by [xiaoovo663](https://github.com/your-username)
-
-</div>
+如果这个项目对你有帮助，欢迎 Star ⭐
