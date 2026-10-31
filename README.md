@@ -77,7 +77,7 @@
 ### 方式二：本地直接打开
 
 ```bash
-git clone https://github.com/your-username/ai-chat-client.git
+git clone https://github.com/xiaoovo663/ai-chat-client.git
 cd ai-chat-client
 ```
 
